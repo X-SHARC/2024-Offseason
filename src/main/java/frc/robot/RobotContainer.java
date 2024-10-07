@@ -5,7 +5,19 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.EjectNote;
+import frc.robot.commands.GetNote;
+import frc.robot.commands.TeleopSwerve;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Swerve;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -28,10 +40,27 @@ public class RobotContainer {
   private final CommandPS4Controller m_operatorController = 
       new CommandPS4Controller(OperatorConstants.kOperatorControllerPort);
 
+  // Subsystems
+  Swerve swerveDrivetrain = new Swerve();
+  Intake intake = new Intake();
+  Feeder feeder = new Feeder();
+  Shooter shooter = new Shooter();
+  Arm arm = new Arm();
+
+  // Commands
+  GetNote getNoteCommand = new GetNote(intake, feeder);
+  EjectNote ejectNoteCommand = new EjectNote(intake, feeder);
+
+  // Auto Chooser
+  private final SendableChooser<Command> autoChooser;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser:", autoChooser);
   }
 
   /**
@@ -45,7 +74,17 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    swerveDrivetrain.setDefaultCommand(
+      new TeleopSwerve(
+        swerveDrivetrain, 
+        () -> -m_driverController.getLeftY(), 
+        () -> -m_driverController.getLeftX(), 
+        () -> -m_driverController.getRightX(), 
+        () -> false)
+    );
 
+    m_operatorController.circle().whileTrue(getNoteCommand);
+    m_operatorController.square().whileTrue(ejectNoteCommand);
   }
 
   /**
@@ -55,6 +94,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null;
+    return autoChooser.getSelected();
   }
 }

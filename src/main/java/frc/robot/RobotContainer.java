@@ -5,6 +5,8 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AmpSequence;
+import frc.robot.commands.ArmAngle;
 import frc.robot.commands.EjectNote;
 import frc.robot.commands.GetNote;
 import frc.robot.commands.TeleopSwerve;
@@ -19,6 +21,8 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -51,6 +55,19 @@ public class RobotContainer {
   GetNote getNoteCommand = new GetNote(intake, feeder);
   EjectNote ejectNoteCommand = new EjectNote(intake, feeder);
 
+  AmpSequence ampSequenceCommand = new AmpSequence(arm, shooter, feeder);
+  ArmAngle armClosedCommand = new ArmAngle(arm, 5);
+  RunCommand armUpCommand = new RunCommand(() -> arm.armUp(), arm);
+  RunCommand armDownCommand = new RunCommand(() -> arm.armDown(), arm);
+  InstantCommand armStopCommand = new InstantCommand(() -> arm.stop(), arm);
+
+  RunCommand shooterSpeedUpCommand = new RunCommand(() -> shooter.shoot(), shooter);
+  InstantCommand shooterStopCommand = new InstantCommand(() -> shooter.stop(), shooter);
+
+  RunCommand feederInCommand = new RunCommand(() -> feeder.feedIn(), feeder);
+  InstantCommand feederStopCommand = new InstantCommand(() -> feeder.stop(), feeder);
+
+  InstantCommand gyroResetCommand = new InstantCommand(() -> swerveDrivetrain.zeroHeading(), swerveDrivetrain);
   // Auto Chooser
   private final SendableChooser<Command> autoChooser;
 
@@ -74,6 +91,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    // Driver Controls
     swerveDrivetrain.setDefaultCommand(
       new TeleopSwerve(
         swerveDrivetrain, 
@@ -83,8 +101,21 @@ public class RobotContainer {
         () -> false)
     );
 
+    m_driverController.button(8).onTrue(gyroResetCommand); // option button
+    m_driverController.rightBumper()
+      .whileTrue(feederInCommand)
+      .onFalse(feederStopCommand);
+
+    // Operator Controls
+    m_operatorController.R1()
+      .whileTrue(ampSequenceCommand)
+      .onFalse(shooterStopCommand)
+      .onFalse(feederStopCommand)
+      .onFalse(armClosedCommand);
     m_operatorController.circle().whileTrue(getNoteCommand);
     m_operatorController.square().whileTrue(ejectNoteCommand);
+    m_operatorController.triangle().whileTrue(armUpCommand).onFalse(armStopCommand);
+    m_operatorController.cross().whileTrue(armDownCommand).onFalse(armStopCommand);
   }
 
   /**

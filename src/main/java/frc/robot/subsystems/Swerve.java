@@ -128,6 +128,11 @@ public class Swerve extends SubsystemBase {
     return getPose().getRotation();
   }
 
+  public void zeroHeading() {
+    swervePose.resetPosition(getGyroYaw(), getModulePositions(),
+            new Pose2d(getPose().getTranslation(), new Rotation2d()));
+  }
+
   public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
     SwerveModuleState[] swerveModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates(
             fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(

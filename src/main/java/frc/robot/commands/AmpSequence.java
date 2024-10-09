@@ -19,7 +19,7 @@ public class AmpSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ArmAngle(arm, 95.3).alongWith(new RunCommand(() -> shooter.shootAmp(), shooter)).withTimeout(0.6),
+      new ArmCommand(arm, 95.3).alongWith(new RunCommand(() -> shooter.shootAmp(), shooter)).withTimeout(0.6),
       new RunCommand(() -> feeder.feedIn(), feeder).withTimeout(4)
     );
   }

@@ -32,10 +32,6 @@ public class Swerve extends SubsystemBase {
     // public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
-    @SuppressWarnings("unused")
-    private double currentAngle;
-    private double tid;
-    private double setpoint;
     public int updateCount = 0;
     private double[] llPose = {0,0,0};
     
@@ -221,31 +217,6 @@ public class Swerve extends SubsystemBase {
         
     }
 
-    // private void updateFromVisionMT2(){
-    //     boolean doRejectUpdate = false;
-    //     LimelightHelpers.SetRobotOrientation("limelight-sharc", swervePose.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
-    //     LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-sharc");
-    //     if(Math.abs(gyro.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
-    //     {
-    //       doRejectUpdate = true;
-    //     }
-    //     if(mt2.tagCount == 0)
-    //     {
-    //       doRejectUpdate = true;
-    //     }
-    //     if(!doRejectUpdate)
-    //     {
-    //         llPose[0] = mt2.pose.getX();
-    //       llPose[1] = mt2.pose.getY() ;
-    //       llPose[2] = mt2.pose.getRotation().getDegrees();
-          
-          
-    //       swervePose.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
-    //       swervePose.addVisionMeasurement(
-    //           mt2.pose,
-    //           mt2.timestampSeconds);
-    //     }
-    // }
 
     private double[] logState(){
         double[] state = new double[8];
@@ -261,12 +232,9 @@ public class Swerve extends SubsystemBase {
         swervePose.update(getGyroYaw(), getModulePositions());
         
 
-        
-        // Karşılaştır ikisini mt2 bi garip inverted gösteriyo mt1de de sıkıntılar var
-        // mt1 açıyı kendi verirse sıkıntı yaşıyor field oriented
-        
+    
         updateFromVisionMT1();
-        // updateFromVisionMT2();
+
         
         SmartDashboard.putNumberArray("SwerveModuleStates", logState());
        
@@ -276,7 +244,6 @@ public class Swerve extends SubsystemBase {
         double[] pose = {sp.getX(), sp.getY(), sp.getRotation().getDegrees()};
         SmartDashboard.putNumberArray("Pose Estimator Robot Pose", pose);
 
-        // SmartDashboard.putBoolean("ArmBroken State", RobotState.armBroken == ArmBroken.FIXED);
-        // SmartDashboard.putBoolean("TargetState", RobotState.targetState == TargetState.PRESENT);
+       
     }
 }

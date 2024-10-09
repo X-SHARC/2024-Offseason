@@ -46,7 +46,7 @@ public class TeleopSwerve extends Command {
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
 
-        if (RobotState.lockIn == RobotState.LockIn.LOCKED){
+        if (RobotState.getLockIn() == RobotState.LockIn.LOCKED){
             
             Pose2d pose = s_Swerve.swervePose.getEstimatedPosition();
             double x = pose.getX();
@@ -67,6 +67,23 @@ public class TeleopSwerve extends Command {
                 SmartDashboard.putNumber("goal", thetaDegrees);
             }
 
+
+            /* TEST THIS
+             * Pose2d pose = s_Swerve.swervePose.getEstimatedPosition();
+                double x = pose.getX();
+                double y = pose.getY();
+                double yOffset = y - 5.5;
+
+                double thetaRad = Math.atan(yOffset / x);
+                double thetaDegrees = Math.toDegrees(thetaRad);
+
+                // If y < 5.5, reverse the angle
+                double goal = (y < 5.5) ? -thetaDegrees : thetaDegrees;
+
+                SmartDashboard.putNumber("goal", thetaDegrees);
+
+             */
+
             s_Swerve.drive(
                 new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
                 SwerveRotatePID.calculate(s_Swerve.getGyroDouble(), goal) * Constants.Swerve.maxAngularVelocity, 
@@ -74,6 +91,12 @@ public class TeleopSwerve extends Command {
             true
             ); 
             
+            if (SwerveRotatePID.atSetpoint()){
+                RobotState.setAligned();;
+            }else{
+                RobotState.setAligning();
+            }
+
         } else{
             /* Drive */
 
@@ -82,7 +105,9 @@ public class TeleopSwerve extends Command {
                 rotationVal * Constants.Swerve.maxAngularVelocity, 
                 !robotCentricSup.getAsBoolean(), 
             true
-            );  
+            );
+            
+            RobotState.setNoAlign();
         }
         
         

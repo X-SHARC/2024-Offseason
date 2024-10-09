@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotState;
 
 public class Feeder extends SubsystemBase {
 
@@ -42,6 +43,11 @@ public class Feeder extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if (getBeamSensor()) {
+      RobotState.setObjectPresent();
+    }else {
+      RobotState.setObjectAbsent();
+    }
     // This method will be called once per scheduler run
   }
 }

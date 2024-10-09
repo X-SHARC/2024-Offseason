@@ -5,16 +5,17 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.RobotState.LockIn;
 import frc.robot.commands.AmpSequence;
 import frc.robot.commands.ArmCommand;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.EjectNote;
 import frc.robot.commands.GetNote;
+import frc.robot.commands.LedCommand;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Swerve;
 
@@ -44,6 +45,7 @@ public class RobotContainer {
   private final Feeder feeder = new Feeder();
   private final Shooter shooter = new Shooter();
   private final Arm arm = new Arm();
+  private final LED led = new LED(1, 60);
 
   // Commands
   GetNote getNoteCommand = new GetNote(intake, feeder);
@@ -64,6 +66,7 @@ public class RobotContainer {
   InstantCommand gyroResetCommand = new InstantCommand(() -> m_swerve.zeroHeading(), m_swerve);
 
   AutoAim autoAimCommand = new AutoAim(arm, m_swerve);
+  LedCommand ledCommand = new LedCommand(led);
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -106,6 +109,8 @@ public class RobotContainer {
         () -> -m_driverController.getRightX(), 
         () -> false));
 
+    led.setDefaultCommand(ledCommand);
+
     m_driverController.a().whileTrue(getNoteCommand);
     m_driverController.button(8).onTrue(gyroResetCommand); // option button
     m_driverController.rightBumper()
@@ -117,8 +122,8 @@ public class RobotContainer {
       .whileTrue(shooterSpeedUpCommand)
       .onFalse(armStopCommand)
       .onFalse(shooterStopCommand)
-      .onTrue(new InstantCommand(() -> RobotState.lockIn = LockIn.LOCKED))
-      .onFalse(new InstantCommand(() -> RobotState.lockIn = LockIn.FREE));
+      .onTrue(new InstantCommand(() -> RobotState.setLockIn()))
+      .onFalse(new InstantCommand(() -> RobotState.setFree()));
 
     // Operator Controls
     m_operatorController.R1()

@@ -14,20 +14,9 @@ public class RobotState {
         ABSENT
     }
 
-    public enum ArmState {
-        ZERO,
-        AIMING,
-        AIMED
-    }
-
     public enum Object{
         PRESENT, 
         ABSENT
-    }
-
-    public enum ArmBroken{
-        BROKEN,
-        FIXED
     }
 
     public enum LockIn{
@@ -39,7 +28,6 @@ public class RobotState {
     public static SwerveState swerveState = SwerveState.NO_ALIGN;
     public static TargetState targetState = TargetState.ABSENT;
     public static Object objectState = Object.ABSENT;
-    public static ArmBroken armBroken = ArmBroken.FIXED;
     public static LockIn lockIn = LockIn.FREE;
 
 
@@ -49,5 +37,61 @@ public class RobotState {
             robotState = new RobotState();
         }
         return robotState;
+    }
+
+    public static void setAligned(){
+        swerveState = SwerveState.ALIGNED;
+    }
+
+    public static void setNoAlign(){
+        swerveState = SwerveState.NO_ALIGN;
+    }
+
+    public static void setAligning(){
+        swerveState = SwerveState.ALIGNING;
+    }
+
+
+    public static void setTargetPresent(){
+        targetState = TargetState.PRESENT;
+    }
+
+    public static void setTargetAbsent(){
+        targetState = TargetState.ABSENT;
+    }
+
+
+    public static void setObjectPresent(){
+        objectState = Object.PRESENT;
+    }
+
+    public static void setObjectAbsent(){
+        objectState = Object.ABSENT;
+    }
+
+
+    public static void setLockIn(){
+        lockIn = LockIn.LOCKED;
+    }
+
+    public static void setFree(){
+        lockIn = LockIn.FREE;
+    }
+
+    
+    public static SwerveState getSwerveState(){
+        return swerveState;
+    }
+
+    public static TargetState getTargetState(){
+        return targetState;
+    }
+
+    public static Object getObjectState(){
+        return objectState;
+    }
+
+    public static LockIn getLockIn(){
+        return lockIn;
     }
 }

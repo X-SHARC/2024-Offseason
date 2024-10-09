@@ -1,15 +1,11 @@
 package frc.robot.subsystems;
 
-import frc.robot.SwerveModule;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
-
-
-
 
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -29,16 +25,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Swerve extends SubsystemBase {
-    // public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
     public int updateCount = 0;
-    private double[] llPose = {0,0,0};
-    
+    private double[] llPose = { 0, 0, 0 };
 
     public SwerveDrivePoseEstimator swervePose;
 
-    public PIDController swerveRotationalPID = new PIDController(0.12,0, 0);
+    public PIDController swerveRotationalPID = new PIDController(0.12, 0, 0);
 
     public Swerve() {
         gyro = new Pigeon2(Constants.Swerve.pigeonID);
@@ -53,7 +47,8 @@ public class Swerve extends SubsystemBase {
 
         };
 
-        swervePose = new SwerveDrivePoseEstimator(Constants.Swerve.swerveKinematics, getGyroYaw(), getModulePositions(), new Pose2d());
+        swervePose = new SwerveDrivePoseEstimator(Constants.Swerve.swerveKinematics, getGyroYaw(), getModulePositions(),
+                new Pose2d());
 
         AutoBuilder.configureHolonomic(
                 this::getPose,
@@ -108,7 +103,6 @@ public class Swerve extends SubsystemBase {
         setModuleStates(states);
     }
 
-
     public ChassisSpeeds getRRSpeeds() {
         return Constants.Swerve.kinematics.toChassisSpeeds(getModuleStates());
     }
@@ -130,7 +124,6 @@ public class Swerve extends SubsystemBase {
         return states;
     }
 
-    
     public SwerveModulePosition[] getModulePositions() {
         SwerveModulePosition[] positions = new SwerveModulePosition[4];
         for (SwerveModule mod : mSwerveMods) {
@@ -143,7 +136,7 @@ public class Swerve extends SubsystemBase {
         return swervePose.getEstimatedPosition();
     }
 
-    public double getGyroDouble(){
+    public double getGyroDouble() {
         return gyro.getYaw().getValueAsDouble();
     }
 
@@ -156,15 +149,13 @@ public class Swerve extends SubsystemBase {
     }
 
     public void setHeading(Rotation2d heading) {
-        
-
         swervePose.resetPosition(getGyroYaw(), getModulePositions(), new Pose2d(getPose().getTranslation(), heading));
     }
 
     public void zeroHeading() {
         swervePose.resetPosition(getGyroYaw(), getModulePositions(),
                 new Pose2d(getPose().getTranslation(), new Rotation2d()));
-        
+
     }
 
     public Rotation2d getGyroYaw() {
@@ -177,52 +168,43 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    public void updateFromVisionMT1(){
-        
-        
+    public void updateFromVisionMT1() {
+
         boolean doRejectUpdate = false;
 
-
         LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-sharc");
-      
-        if(mt1.tagCount == 1 && mt1.rawFiducials.length == 1)
-        {
-          if(mt1.rawFiducials[0].ambiguity > .7)
-          {
-            doRejectUpdate = true;
-          }
-          if(mt1.rawFiducials[0].distToCamera > 3)
-          {
-            doRejectUpdate = true;
-          }
-        }
-        if(mt1.tagCount == 0)
-        {
-          doRejectUpdate = true;
-        }
-  
-        if(!doRejectUpdate)
-        {
-        //   swervePose.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,9999999));
-          llPose[0] = mt1.pose.getX();
-          llPose[1] = mt1.pose.getY();
-          llPose[2] = mt1.pose.getRotation().getDegrees() < 0 ? mt1.pose.getRotation().getDegrees() + 180 : mt1.pose.getRotation().getDegrees() -180;
 
-          
+        if (mt1.tagCount == 1 && mt1.rawFiducials.length == 1) {
+            if (mt1.rawFiducials[0].ambiguity > .7) {
+                doRejectUpdate = true;
+            }
+            if (mt1.rawFiducials[0].distToCamera > 3) {
+                doRejectUpdate = true;
+            }
+        }
+        if (mt1.tagCount == 0) {
+            doRejectUpdate = true;
+        }
+
+        if (!doRejectUpdate) {
+            // swervePose.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,9999999));
+            llPose[0] = mt1.pose.getX();
+            llPose[1] = mt1.pose.getY();
+            llPose[2] = mt1.pose.getRotation().getDegrees() < 0 ? mt1.pose.getRotation().getDegrees() + 180
+                    : mt1.pose.getRotation().getDegrees() - 180;
+
             swervePose.addVisionMeasurement(
-                new Pose2d(new Translation2d(mt1.pose.getX(), mt1.pose.getY()), getGyroYaw()),
-                mt1.timestampSeconds);
+                    new Pose2d(new Translation2d(mt1.pose.getX(), mt1.pose.getY()), getGyroYaw()),
+                    mt1.timestampSeconds);
         }
 
-        
     }
 
-
-    private double[] logState(){
+    private double[] logState() {
         double[] state = new double[8];
-        for(int i = 0; i < 4; i++){
-            state[i*2] = mSwerveMods[i].getLogAngle();
-            state[i*2 + 1] = mSwerveMods[i].getLogVelocity();
+        for (int i = 0; i < 4; i++) {
+            state[i * 2] = mSwerveMods[i].getLogAngle();
+            state[i * 2 + 1] = mSwerveMods[i].getLogVelocity();
         }
         return state;
     }
@@ -230,20 +212,16 @@ public class Swerve extends SubsystemBase {
     @Override
     public void periodic() {
         swervePose.update(getGyroYaw(), getModulePositions());
-        
 
-    
         updateFromVisionMT1();
 
-        
         SmartDashboard.putNumberArray("SwerveModuleStates", logState());
-       
+
         SmartDashboard.putNumberArray("LL Robot Pose", llPose);
 
         Pose2d sp = swervePose.getEstimatedPosition();
-        double[] pose = {sp.getX(), sp.getY(), sp.getRotation().getDegrees()};
+        double[] pose = { sp.getX(), sp.getY(), sp.getRotation().getDegrees() };
         SmartDashboard.putNumberArray("Pose Estimator Robot Pose", pose);
 
-       
     }
 }

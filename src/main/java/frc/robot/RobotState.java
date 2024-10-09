@@ -1,5 +1,10 @@
 package frc.robot;
 
+import java.util.Optional;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+
 public class RobotState {
     private static RobotState robotState;
 
@@ -29,6 +34,7 @@ public class RobotState {
     public static TargetState targetState = TargetState.ABSENT;
     public static Object objectState = Object.ABSENT;
     public static LockIn lockIn = LockIn.FREE;
+    public static Optional<Alliance> alliance = DriverStation.getAlliance();
 
 
 
@@ -39,6 +45,14 @@ public class RobotState {
         return robotState;
     }
 
+    public static boolean isBlueAlliance(){
+        if (alliance.isPresent()){
+            return alliance.get() == Alliance.Blue;
+        }
+        return false;
+    }
+
+    
     public static void setAligned(){
         swerveState = SwerveState.ALIGNED;
     }

@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
+import frc.robot.RobotState;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
@@ -172,8 +173,11 @@ public class Swerve extends SubsystemBase {
 
         boolean doRejectUpdate = false;
 
-        LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-sharc");
-
+        LimelightHelpers.PoseEstimate mt1 = 
+            RobotState.isBlueAlliance() ? 
+            LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-sharc") : 
+            LimelightHelpers.getBotPoseEstimate_wpiRed("limelight-sharc");
+        
         if (mt1.tagCount == 1 && mt1.rawFiducials.length == 1) {
             if (mt1.rawFiducials[0].ambiguity > .7) {
                 doRejectUpdate = true;

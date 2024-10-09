@@ -26,11 +26,11 @@ public class LedCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /*  
-      * aligned to target -> orange (solid)
-      * aligning to target -> purple (blink)
-      * object present -> yellow (blink)
-      * default -> green (sliding)
+    /* LED COLOR CODES:
+        * aligned to target -> orange (solid)
+        * aligning to target -> purple (blink)
+        * object present -> yellow (blink)
+        * default -> green (sliding)
     */
     if (RobotState.getSwerveState() == RobotState.SwerveState.ALIGNED){
       led.setColor(255, 87, 51); // orange
@@ -42,7 +42,7 @@ public class LedCommand extends Command {
       led.blink(252, 127, 3); // yellow
     }
     else{
-      led.sliding(Color.kGreen);
+      led.sliding(Color.kGreen); // green
     }
   }
 

@@ -49,7 +49,7 @@ public class RobotState {
         if (alliance.isPresent()){
             return alliance.get() == Alliance.Blue;
         }
-        return false;
+        return true;
     }
 
     

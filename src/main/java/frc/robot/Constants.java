@@ -157,9 +157,9 @@ public final class Constants {
         public static final InterpolatingDoubleTreeMap interpolatingMap = new InterpolatingDoubleTreeMap();
         static {
             //length, arm angle
-            interpolatingMap.put(135.0, 0.0); 
-            interpolatingMap.put(174.0, 6.0); 
-            interpolatingMap.put(193.0, 8.0); 
+            interpolatingMap.put(135.0, 0.0 ); 
+            interpolatingMap.put(174.0, 6.0 ); 
+            interpolatingMap.put(193.0, 8.0 ); 
             interpolatingMap.put(206.0, 10.0);
             interpolatingMap.put(236.0, 12.0);
             interpolatingMap.put(256.0, 14.0);

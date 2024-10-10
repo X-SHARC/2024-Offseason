@@ -23,7 +23,7 @@ public class TeleopSwerve extends Command {
     private DoubleSupplier rotationSup;
     private BooleanSupplier robotCentricSup;
 
-    public PIDController SwerveRotatePID = new PIDController(0.018,0,0);
+    public PIDController SwerveRotatePID = new PIDController(0.019,0,0);
 
     @SuppressWarnings("unused")
     private CommandXboxController driver;
@@ -37,6 +37,7 @@ public class TeleopSwerve extends Command {
         this.rotationSup = rotationSup;
         this.robotCentricSup = robotCentricSup;
         this.driver = driver;
+        SwerveRotatePID.setTolerance(2);
     }
 
     @Override
@@ -66,23 +67,6 @@ public class TeleopSwerve extends Command {
                 goal = thetaDegrees;
                 SmartDashboard.putNumber("goal", thetaDegrees);
             }
-
-
-            /* TEST THIS
-             * Pose2d pose = s_Swerve.swervePose.getEstimatedPosition();
-                double x = pose.getX();
-                double y = pose.getY();
-                double yOffset = y - 5.5;
-
-                double thetaRad = Math.atan(yOffset / x);
-                double thetaDegrees = Math.toDegrees(thetaRad);
-
-                // If y < 5.5, reverse the angle
-                double goal = (y < 5.5) ? -thetaDegrees : thetaDegrees;
-
-                SmartDashboard.putNumber("goal", thetaDegrees);
-
-             */
 
             s_Swerve.drive(
                 new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 

@@ -12,6 +12,8 @@ import frc.robot.commands.EjectNote;
 import frc.robot.commands.GetNote;
 import frc.robot.commands.LedCommand;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.AutoCommands.FeedShooter;
+import frc.robot.commands.AutoCommands.GrabAndFeed;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
@@ -20,6 +22,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Swerve;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -66,8 +69,10 @@ public class RobotContainer {
   InstantCommand gyroResetCommand = new InstantCommand(() -> m_swerve.zeroHeading(), m_swerve);
 
   AutoAim autoAimCommand = new AutoAim(arm, m_swerve);
-  LedCommand ledCommand = new LedCommand(led);
   
+  // Auto Commands
+  GrabAndFeed grabAndFeed = new GrabAndFeed(intake, feeder);
+  FeedShooter feedShooter = new FeedShooter(feeder);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -83,6 +88,10 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
+
+    NamedCommands.registerCommand("intake", grabAndFeed);
+    NamedCommands.registerCommand("spinShooter", shooterSpeedUpCommand);
+    NamedCommands.registerCommand("feedShooter", feedShooter);
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -109,7 +118,7 @@ public class RobotContainer {
         () -> -m_driverController.getRightX(), 
         () -> false));
 
-    led.setDefaultCommand(ledCommand);
+    led.setDefaultCommand(new LedCommand(led));
 
     m_driverController.a().whileTrue(getNoteCommand);
     m_driverController.button(8).onTrue(gyroResetCommand); // option button

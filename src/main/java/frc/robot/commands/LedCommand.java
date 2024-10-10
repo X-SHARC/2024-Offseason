@@ -16,6 +16,7 @@ public class LedCommand extends Command {
   /** Creates a new LedCommand. */
   public LedCommand(LED led) {
     this.led = led;
+    addRequirements(led);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

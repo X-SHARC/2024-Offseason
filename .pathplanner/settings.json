@@ -4,7 +4,8 @@
   "holonomicMode": true,
   "pathFolders": [
     "Main",
-    "McQueen"
+    "McQueen",
+    "Side"
   ],
   "autoFolders": [],
   "defaultMaxVel": 4.98,

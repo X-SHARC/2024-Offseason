@@ -204,6 +204,7 @@ public class Swerve extends SubsystemBase {
 
     }
 
+    @SuppressWarnings("unused")
     private double[] logState() {
         double[] state = new double[8];
         for (int i = 0; i < 4; i++) {
@@ -219,13 +220,15 @@ public class Swerve extends SubsystemBase {
 
         updateFromVisionMT1();
 
-        SmartDashboard.putNumberArray("SwerveModuleStates", logState());
+        SmartDashboard.putBoolean("Can LockIn", RobotState.canLockIn());
 
-        SmartDashboard.putNumberArray("LL Robot Pose", llPose);
+        //SmartDashboard.putNumberArray("SwerveModuleStates", logState());
 
-        Pose2d sp = swervePose.getEstimatedPosition();
-        double[] pose = { sp.getX(), sp.getY(), sp.getRotation().getDegrees() };
-        SmartDashboard.putNumberArray("Pose Estimator Robot Pose", pose);
+        //SmartDashboard.putNumberArray("LL Robot Pose", llPose);
+
+        // Pose2d sp = swervePose.getEstimatedPosition();
+        // double[] pose = { sp.getX(), sp.getY(), sp.getRotation().getDegrees() };
+        // SmartDashboard.putNumberArray("Pose Estimator Robot Pose", pose);
 
     }
 }

@@ -10,7 +10,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotState;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -76,8 +75,8 @@ public class TeleopSwerve extends Command {
                 angleDifference += 360;
             }
     
-            SmartDashboard.putNumber("goal", goal);
-            SmartDashboard.putNumber("angleDifference", angleDifference);
+            //SmartDashboard.putNumber("goal", goal);
+            //SmartDashboard.putNumber("angleDifference", angleDifference);
     
             // Use the shortest path angle difference for the PID controller
             s_Swerve.drive(

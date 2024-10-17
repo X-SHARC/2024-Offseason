@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
@@ -36,7 +35,7 @@ public class AutoAim extends Command {
     Pose2d p = swerve.swervePose.getEstimatedPosition();
     distance = Math.sqrt(Math.pow(p.getY()-5.5,2) + Math.pow(p.getX(), 2)) * 100;
     setpoint = Constants.ArmData.interpolatingMap.get(distance);
-    SmartDashboard.putNumber("arm dist", distance);
+    //SmartDashboard.putNumber("arm dist", distance);
     arm.setAngle(setpoint);
     
   }

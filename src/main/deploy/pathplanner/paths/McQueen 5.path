@@ -1,0 +1,87 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.53,
+        "y": 5.55
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.703780960091681,
+        "y": 5.626383962589354
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.524131824339646,
+        "y": 6.653893000934585
+      },
+      "prevControl": {
+        "x": 3.321958231537469,
+        "y": 6.6167576896575415
+      },
+      "nextControl": {
+        "x": 7.302642383917276,
+        "y": 6.683884071327625
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.605144369441955,
+        "y": 5.696271237589833
+      },
+      "prevControl": {
+        "x": 9.01862478935986,
+        "y": 5.391407552084315
+      },
+      "nextControl": {
+        "x": 5.0842385683980735,
+        "y": 8.292274015755517
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.3650410634154604,
+        "y": 5.46573815369853
+      },
+      "prevControl": {
+        "x": 4.1403683300298155,
+        "y": 6.134185855611294
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.35,
+      "rotationDegrees": -30.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.98,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -1.0894418740574303,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "McQueen",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

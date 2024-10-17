@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3237095363079616,
+      "x": 1.33,
       "y": 5.56
     },
     "rotation": 0
@@ -28,7 +28,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Part 0"
+                        "pathName": "McQueen 1"
                       }
                     },
                     {
@@ -50,32 +50,7 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Part 1"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "feedShooter"
-                      }
-                    },
-                    {
-                      "type": "parallel",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "intake"
-                            }
-                          },
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "Part 2"
+                              "pathName": "McQueen 2"
                             }
                           }
                         ]
@@ -100,7 +75,32 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Part 3"
+                              "pathName": "McQueen 3"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "feedShooter"
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "intake"
+                            }
+                          },
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "McQueen 4"
                             }
                           }
                         ]
@@ -119,10 +119,22 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Part 4"
+                              "pathName": "McQueen 5"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "intake"
                             }
                           }
                         ]
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "feedShooter"
                       }
                     }
                   ]

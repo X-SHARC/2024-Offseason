@@ -3,12 +3,13 @@
   "robotLength": 0.68,
   "holonomicMode": true,
   "pathFolders": [
-    "Main"
+    "Main",
+    "McQueen"
   ],
   "autoFolders": [],
-  "defaultMaxVel": 4.9,
-  "defaultMaxAccel": 3.0,
-  "defaultMaxAngVel": 540.0,
+  "defaultMaxVel": 4.98,
+  "defaultMaxAccel": 4.5,
+  "defaultMaxAngVel": 360.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 4.5
 }

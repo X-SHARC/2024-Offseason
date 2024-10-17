@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpSequence;
+import frc.robot.commands.ArkaSokaklar;
 import frc.robot.commands.ArmCommand;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.EjectNote;
@@ -30,7 +31,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -70,6 +70,8 @@ public class RobotContainer {
   InstantCommand gyroResetCommand = new InstantCommand(() -> m_swerve.zeroHeading(), m_swerve);
 
   AutoAim autoAimCommand = new AutoAim(arm, m_swerve);
+
+  ArkaSokaklar arkaSokaklarCommand = new ArkaSokaklar(led);
   
   // Auto Commands
   GrabAndFeed grabAndFeed = new GrabAndFeed(intake, feeder);
@@ -145,6 +147,8 @@ public class RobotContainer {
     m_operatorController.square().whileTrue(ejectNoteCommand);
     m_operatorController.triangle().whileTrue(armUpCommand).onFalse(armStopCommand);
     m_operatorController.cross().whileTrue(armDownCommand).onFalse(armStopCommand);
+    m_operatorController.R3().whileTrue(arkaSokaklarCommand);
+
 
     // // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_exampleSubsystem::exampleCondition)

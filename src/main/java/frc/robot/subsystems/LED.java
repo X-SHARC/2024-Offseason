@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LED extends SubsystemBase {
 
+  public enum Side { LEFT, RIGHT }
+
   private static AddressableLED m_led;
   private static AddressableLEDBuffer m_ledBuffer;
   int[] rgb = new int[60];
@@ -24,6 +26,11 @@ public class LED extends SubsystemBase {
     m_ledBuffer = new AddressableLEDBuffer(ledLength);
     m_led.setLength(m_ledBuffer.getLength());
     m_led.start();
+  }
+
+  public void turnOff() {
+    setColor(0, 0, 0);
+    m_led.setData(m_ledBuffer);
   }
 
   public void setColor(int r, int g, int b) {
@@ -62,6 +69,25 @@ public class LED extends SubsystemBase {
     beginning %= 60;
   }
 
+  public void lightOneSide(Side side, int hue) {
+    int ledlength = m_ledBuffer.getLength();
+    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+      double temp;
+      if (side == Side.RIGHT) {
+        temp = (6*i/ledlength) - 1;
+      } else {
+        temp = (-6*i/ledlength) + 3;
+      }
+      int brightness = (int) (255 * clamp(temp, 0, 1));
+      m_ledBuffer.setHSV(i, hue, brightness, brightness);
+    }
+    m_led.setData(m_ledBuffer);
+
+  }
+
+  private double clamp (double n, double min, double max) {
+    return n > max ? max : (n < min ? min : n);
+  } 
 
   @Override
   public void periodic() {

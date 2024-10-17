@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -78,8 +79,8 @@ public class RobotContainer {
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-  private final CommandPS4Controller m_operatorController = 
-      new CommandPS4Controller(OperatorConstants.kOperatorControllerPort);
+  private final CommandPS5Controller m_operatorController = 
+      new CommandPS5Controller(OperatorConstants.kOperatorControllerPort);
 
 
   private final SendableChooser<Command> autoChooser;

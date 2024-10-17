@@ -124,6 +124,7 @@ public class RobotContainer {
     led.setDefaultCommand(new LedCommand(led));
 
     m_driverController.a().whileTrue(getNoteCommand);
+    m_driverController.b().onTrue(gyroResetCommand);
     m_driverController.button(8).onTrue(gyroResetCommand); // option button
     m_driverController.rightBumper()
       .whileTrue(feederInCommand)
@@ -134,7 +135,7 @@ public class RobotContainer {
       .whileTrue(shooterSpeedUpCommand)
       .onFalse(armStopCommand)
       .onFalse(shooterStopCommand)
-      .onTrue(new InstantCommand(() -> RobotState.setLockIn()))
+      .onTrue(new InstantCommand(() -> {if(RobotState.canLockIn()){RobotState.setLockIn();}}))
       .onFalse(new InstantCommand(() -> RobotState.setFree()));
 
     // Operator Controls
@@ -148,6 +149,7 @@ public class RobotContainer {
     m_operatorController.triangle().whileTrue(armUpCommand).onFalse(armStopCommand);
     m_operatorController.cross().whileTrue(armDownCommand).onFalse(armStopCommand);
     m_operatorController.R3().whileTrue(arkaSokaklarCommand);
+    m_operatorController.L1().onTrue(new InstantCommand(() -> RobotState.toggleLockInDisabled()));
 
 
     // // Schedule `ExampleCommand` when `exampleCondition` changes to `true`

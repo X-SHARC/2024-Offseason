@@ -26,7 +26,8 @@ public class RobotState {
 
     public enum LockIn{
         LOCKED,
-        FREE
+        FREE,
+        DISABLED
     }
 
 
@@ -107,5 +108,17 @@ public class RobotState {
 
     public static LockIn getLockIn(){
         return lockIn;
+    }
+
+    public static boolean canLockIn(){
+        return lockIn != LockIn.DISABLED;
+    }
+
+    public static void toggleLockInDisabled(){
+        if(lockIn == LockIn.DISABLED){
+            lockIn = LockIn.FREE;
+        } else {
+            lockIn = LockIn.DISABLED;
+        }
     }
 }

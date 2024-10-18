@@ -15,6 +15,7 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -169,14 +170,12 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    public void updateFromVisionMT1() {
+    private void updateFromVisionMT1() {
 
         boolean doRejectUpdate = false;
 
-        LimelightHelpers.PoseEstimate mt1 = 
-            RobotState.isBlueAlliance() ? 
-            LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-sharc") : 
-            LimelightHelpers.getBotPoseEstimate_wpiRed("limelight-sharc");
+        LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-sharc");
+            
         
         if (mt1.tagCount == 1 && mt1.rawFiducials.length == 1) {
             if (mt1.rawFiducials[0].ambiguity > .7) {
@@ -204,6 +203,33 @@ public class Swerve extends SubsystemBase {
 
     }
 
+    private void updateFromVisionMT2() {
+        boolean doRejectUpdate = false;
+        LimelightHelpers.SetRobotOrientation("limelight-sharc", 180, 0, Constants.LIMELIGHT_MOUNTING_ANGLE, 0, 0, 0);
+        LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-sharc");
+
+        if(Math.abs(gyro.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+        {
+          doRejectUpdate = true;
+        }
+        if(mt2.tagCount == 0)
+        {
+          doRejectUpdate = true;
+        }
+        if(!doRejectUpdate)
+        {
+            llPose[0] = mt2.pose.getX();
+          llPose[1] = mt2.pose.getY() ;
+          llPose[2] = mt2.pose.getRotation().getDegrees();
+          
+          
+          swervePose.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
+          swervePose.addVisionMeasurement(
+              mt2.pose,
+              mt2.timestampSeconds);
+        }
+    }
+
     @SuppressWarnings("unused")
     private double[] logState() {
         double[] state = new double[8];
@@ -219,8 +245,6 @@ public class Swerve extends SubsystemBase {
         swervePose.update(getGyroYaw(), getModulePositions());
 
         updateFromVisionMT1();
-
-        SmartDashboard.putBoolean("Can LockIn", RobotState.canLockIn());
 
         //SmartDashboard.putNumberArray("SwerveModuleStates", logState());
 

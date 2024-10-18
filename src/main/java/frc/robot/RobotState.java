@@ -46,14 +46,6 @@ public class RobotState {
         }
         return robotState;
     }
-
-    public static boolean isBlueAlliance(){
-        if (alliance.isPresent()){
-            return alliance.get() == Alliance.Blue;
-        }
-        return true;
-    }
-
     
     public static void setAligned(){
         swerveState = SwerveState.ALIGNED;

@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8856111064073968,
-        "y": 5.930005221121554
+        "x": 1.9544719376475788,
+        "y": 4.335648853705115
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.988372421189287,
-        "y": 7.106290981100481
+        "x": 8.350128528960761,
+        "y": 2.528171125786696
       },
       "prevControl": {
-        "x": 2.5132223253265464,
-        "y": 6.645667767149467
+        "x": 0.4746910836414268,
+        "y": -0.10962356183971618
       },
       "nextControl": {
-        "x": 3.0349891579412795,
-        "y": 7.1514824927798015
+        "x": 8.498900664257317,
+        "y": 2.5780007829805736
       },
       "isLocked": false,
       "linkedName": null
@@ -36,23 +36,35 @@
         "y": 5.55
       },
       "prevControl": {
-        "x": 1.8920246192344234,
-        "y": 6.139988381828616
+        "x": 1.3321830402920063,
+        "y": -0.33006295919999207
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 59.07287045885829,
-      "rotateFast": false
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.85,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intake"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
-  "constraintZones": [],
-  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.98,
     "maxAcceleration": 4.5,
@@ -65,7 +77,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Main",
+  "folder": "Side 2",
   "previewStartingState": null,
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

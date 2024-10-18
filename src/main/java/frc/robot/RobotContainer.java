@@ -134,9 +134,7 @@ public class RobotContainer {
       .whileTrue(autoAimCommand)
       .whileTrue(shooterSpeedUpCommand)
       .onFalse(armStopCommand)
-      .onFalse(shooterStopCommand)
-      .onTrue(new InstantCommand(() -> {if(RobotState.canLockIn()){RobotState.setLockIn();}}))
-      .onFalse(new InstantCommand(() -> RobotState.setFree()));
+      .onFalse(shooterStopCommand);
 
     // Operator Controls
     m_operatorController.R1()
@@ -149,7 +147,6 @@ public class RobotContainer {
     m_operatorController.triangle().whileTrue(armUpCommand).onFalse(armStopCommand);
     m_operatorController.cross().whileTrue(armDownCommand).onFalse(armStopCommand);
     m_operatorController.R3().whileTrue(arkaSokaklarCommand);
-    m_operatorController.L1().onTrue(new InstantCommand(() -> RobotState.toggleLockInDisabled()));
 
 
     // // Schedule `ExampleCommand` when `exampleCondition` changes to `true`

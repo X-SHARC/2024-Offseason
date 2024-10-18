@@ -8,7 +8,6 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.RobotState;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -46,63 +45,17 @@ public class TeleopSwerve extends Command {
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
     
-        if (RobotState.getLockIn() == RobotState.LockIn.LOCKED) {
-    
-            Pose2d pose = s_Swerve.swervePose.getEstimatedPosition();
-            double x = pose.getX();
-            double y = pose.getY();
-            double goal;
-    
-            // Calculate theta in degrees based on the robot's position
-            if (y < 5.5) {
-                double thetaRad = Math.atan(-1 * (y - 5.5) / x);
-                goal = Math.toDegrees(thetaRad) * -1;
-            } else {
-                double thetaRad = Math.atan((y - 5.5) / x);
-                goal = Math.toDegrees(thetaRad);
-            }
-    
-            // Get the current angle from the gyro (range -180 to 180)
-            double currentAngle = s_Swerve.getGyroDouble();
-    
-            // Calculate the angle difference
-            double angleDifference = goal - currentAngle;
-    
-            // Ensure the angle difference is in the range [-180, 180]
-            if (angleDifference > 180) {
-                angleDifference -= 360;
-            } else if (angleDifference < -180) {
-                angleDifference += 360;
-            }
-    
-            //SmartDashboard.putNumber("goal", goal);
-            //SmartDashboard.putNumber("angleDifference", angleDifference);
-    
-            // Use the shortest path angle difference for the PID controller
-            s_Swerve.drive(
-                new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
-                SwerveRotatePID.calculate(currentAngle, currentAngle + angleDifference) * Constants.Swerve.maxAngularVelocity,
-                !robotCentricSup.getAsBoolean(),
-                true
-            );
-    
-            if (SwerveRotatePID.atSetpoint()) {
-                RobotState.setAligned();
-            } else {
-                RobotState.setAligning();
-            }
-    
-        } else {
+        
             // Normal driving without alignment
-            s_Swerve.drive(
-                new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
-                rotationVal * Constants.Swerve.maxAngularVelocity,
-                !robotCentricSup.getAsBoolean(),
-                true
-            );
+        s_Swerve.drive(
+            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
+            rotationVal * Constants.Swerve.maxAngularVelocity,
+            !robotCentricSup.getAsBoolean(),
+            true
+        );
+
+        RobotState.setNoAlign();
     
-            RobotState.setNoAlign();
-        }
     }
     
 }

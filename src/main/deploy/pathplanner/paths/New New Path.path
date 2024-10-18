@@ -3,41 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.53,
+        "x": 1.4,
         "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0278380712936515,
-        "y": 5.55
+        "x": 0.9830622818653043,
+        "y": 4.15838648529149
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.0030349895149198,
-        "y": 5.676377697621467
+        "x": 8.24246465159597,
+        "y": 0.7582791230397274
       },
       "prevControl": {
-        "x": 2.7405924076792467,
-        "y": 5.665549003402214
+        "x": 3.6335243040856446,
+        "y": 0.4997789254837776
       },
       "nextControl": {
-        "x": 3.2654775713505932,
-        "y": 5.68720639184072
+        "x": 8.463135055869445,
+        "y": 0.7706557950724342
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.53,
+        "x": 1.4,
         "y": 5.55
       },
       "prevControl": {
-        "x": 1.43,
-        "y": 5.55
+        "x": 0.8331167273445658,
+        "y": 2.1652092211591834
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,7 +46,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.85,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 4.98,
     "maxAcceleration": 4.5,
@@ -59,10 +77,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "McQueen",
-  "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
-  },
-  "useDefaultConstraints": true
+  "folder": "Side 2",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
 }

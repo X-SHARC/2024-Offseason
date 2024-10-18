@@ -31,10 +31,11 @@ public class RobotState {
     }
 
 
+
     public static SwerveState swerveState = SwerveState.NO_ALIGN;
     public static TargetState targetState = TargetState.ABSENT;
     public static Object objectState = Object.ABSENT;
-    public static LockIn lockIn = LockIn.FREE;
+    public static LockIn lockIn = LockIn.DISABLED;
     public static Optional<Alliance> alliance = DriverStation.getAlliance();
 
 

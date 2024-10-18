@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4,
-        "y": 5.55
+        "x": 0.5084807947393675,
+        "y": 4.144970201977441
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8856111064073968,
-        "y": 5.930005221121554
+        "x": 1.7522865925361484,
+        "y": 4.119731841315534
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.988372421189287,
-        "y": 7.106290981100481
+        "x": 2.806240533777364,
+        "y": 4.144970201977441
       },
       "prevControl": {
-        "x": 2.5132223253265464,
-        "y": 6.645667767149467
+        "x": 1.828714287058204,
+        "y": 4.091583646130255
       },
       "nextControl": {
-        "x": 3.0349891579412795,
-        "y": 7.1514824927798015
+        "x": 3.230360693761122,
+        "y": 4.168133073238324
       },
       "isLocked": false,
       "linkedName": null
@@ -36,23 +36,35 @@
         "y": 5.55
       },
       "prevControl": {
-        "x": 1.8920246192344234,
-        "y": 6.139988381828616
+        "x": 1.7195473381687503,
+        "y": 5.384198816545781
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 59.07287045885829,
-      "rotateFast": false
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.3,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intake"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
-  "constraintZones": [],
-  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.98,
     "maxAcceleration": 4.5,
@@ -65,7 +77,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Main",
+  "folder": "Side 2",
   "previewStartingState": null,
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -5,8 +5,10 @@
   "pathFolders": [
     "Main",
     "McQueen",
+    "Ag Side",
+    "Side",
     "Side 2",
-    "Side"
+    "Side 3"
   ],
   "autoFolders": [],
   "defaultMaxVel": 4.98,

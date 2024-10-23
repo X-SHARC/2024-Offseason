@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
-import frc.robot.RobotState;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
@@ -11,6 +10,9 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerTrajectory;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -218,12 +220,7 @@ public class Swerve extends SubsystemBase {
         }
         if(!doRejectUpdate)
         {
-            llPose[0] = mt2.pose.getX();
-          llPose[1] = mt2.pose.getY() ;
-          llPose[2] = mt2.pose.getRotation().getDegrees();
-          
-          
-          swervePose.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
+        //   swervePose.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
           swervePose.addVisionMeasurement(
               mt2.pose,
               mt2.timestampSeconds);
@@ -244,15 +241,14 @@ public class Swerve extends SubsystemBase {
     public void periodic() {
         swervePose.update(getGyroYaw(), getModulePositions());
 
-        updateFromVisionMT1();
+        
 
         //SmartDashboard.putNumberArray("SwerveModuleStates", logState());
 
-        //SmartDashboard.putNumberArray("LL Robot Pose", llPose);
+        SmartDashboard.putNumberArray("LL Robot Pose", llPose);
 
-        // Pose2d sp = swervePose.getEstimatedPosition();
-        // double[] pose = { sp.getX(), sp.getY(), sp.getRotation().getDegrees() };
-        // SmartDashboard.putNumberArray("Pose Estimator Robot Pose", pose);
-
+        Pose2d sp = swervePose.getEstimatedPosition();
+        double[] pose = { sp.getX(), sp.getY(), sp.getRotation().getDegrees() };
+        SmartDashboard.putNumberArray("Pose Estimator Robot Pose", pose);
     }
 }

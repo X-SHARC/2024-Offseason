@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3237095363079616,
-      "y": 5.56
+      "x": 1.32,
+      "y": 5.55
     },
     "rotation": 0
   },
@@ -26,15 +26,15 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Part 0"
-                      }
-                    },
-                    {
                       "type": "wait",
                       "data": {
                         "waitTime": 0.6
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Part 0"
                       }
                     },
                     {
@@ -48,15 +48,15 @@
                       "data": {
                         "commands": [
                           {
-                            "type": "named",
+                            "type": "path",
                             "data": {
-                              "name": "intake"
+                              "pathName": "Copy of Main p3"
                             }
                           },
                           {
-                            "type": "path",
+                            "type": "named",
                             "data": {
-                              "pathName": "Part 1"
+                              "name": "intake"
                             }
                           }
                         ]
@@ -106,7 +106,7 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Copy of Main p3"
+                              "pathName": "New Part 1"
                             }
                           }
                         ]
@@ -119,16 +119,15 @@
                       }
                     },
                     {
-                      "type": "parallel",
+                      "type": "path",
                       "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "Part 4"
-                            }
-                          }
-                        ]
+                        "pathName": "Part 4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "feedShooter"
                       }
                     }
                   ]

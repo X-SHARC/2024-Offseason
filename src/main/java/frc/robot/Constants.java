@@ -24,7 +24,7 @@ public final class Constants {
         /* Drivetrain Constants */
         public static final double trackWidth = 0.45461415; // TODO: This must be tuned to specific robot
         public static final double wheelBase = 0.45461415; // TODO: This must be tuned to specific robot
-        public static final double wheelCircumference = 2 * Math.PI * Units.inchesToMeters(2.03);
+        public static final double wheelCircumference = 2 * Math.PI * Units.inchesToMeters(2.01);
 
         /*
          * Swerve Kinematics

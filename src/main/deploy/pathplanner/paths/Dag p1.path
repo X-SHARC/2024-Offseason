@@ -3,41 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4,
-        "y": 5.55
+        "x": 0.66549309024544,
+        "y": 4.3108901541877165
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5427586336654153,
-        "y": 5.695318159154837
+        "x": 0.8543947967525566,
+        "y": 0.40470453626092484
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.825678628209108,
-        "y": 7.445732085908616
+        "x": 8.064608439402065,
+        "y": 0.4232324622056651
       },
       "prevControl": {
-        "x": 7.926955451133125,
-        "y": 7.890877383606619
+        "x": 6.848626014237109,
+        "y": 1.2901958215942233
       },
       "nextControl": {
-        "x": 9.512468994487692,
-        "y": 7.105558927085815
+        "x": 8.116332232664465,
+        "y": 0.3863547634502683
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.4,
-        "y": 5.55
+        "x": 8.064608439402065,
+        "y": 7.489498372515264
       },
       "prevControl": {
-        "x": 3.089694705500524,
-        "y": 5.861095918117762
+        "x": 8.042458066397614,
+        "y": 6.588459204696188
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,25 +46,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.6,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.98,
     "maxAcceleration": 4.5,
@@ -77,7 +59,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Main",
+  "folder": null,
   "previewStartingState": null,
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

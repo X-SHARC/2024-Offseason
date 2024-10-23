@@ -131,9 +131,7 @@ public class RobotContainer {
       .onFalse(feederStopCommand);
 
     m_driverController.leftBumper()
-      .whileTrue(autoAimCommand)
       .whileTrue(shooterSpeedUpCommand)
-      .onFalse(armStopCommand)
       .onFalse(shooterStopCommand);
 
     // Operator Controls
